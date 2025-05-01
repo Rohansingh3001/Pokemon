@@ -1,13 +1,19 @@
 import { motion } from 'framer-motion';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Opening() {
   const [showTitle, setShowTitle] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const timer = setTimeout(() => setShowTitle(true), 1000);
-    return () => clearTimeout(timer);
-  }, []);
+    const titleTimer = setTimeout(() => setShowTitle(true), 1000);
+    const redirectTimer = setTimeout(() => navigate('/home'), 4000); // Redirect after 4s
+    return () => {
+      clearTimeout(titleTimer);
+      clearTimeout(redirectTimer);
+    };
+  }, [navigate]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-purple-700 via-pink-500 to-yellow-400 text-white font-bold text-center px-6">
